@@ -1,0 +1,115 @@
+:root {
+    --gap-s: 1rem;
+    --gap-m: 2rem;
+    --gap-l: 4rem;
+
+    --fs-s: 1rem;
+    --fs-m: 2rem;
+    --fs-l: 4rem;
+    --fs-xl: 8rem;
+
+    --ls-s: 1rem;
+    --ls-m: 2rem;
+    --ls-l: 4rem;
+    --ls-xl: 8rem;
+}
+
+
+.vbox {
+	display: flex;
+	flex-direction: column;
+}
+
+.hbox {
+	display: flex;
+	flex-direction: row;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+}
+
+
+.expand-h {
+    height: 100%;
+}
+
+.expand-w {
+    width: 100%;
+}
+
+
+.space {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+
+.gap-s {
+    gap: var(--gap-s);
+}
+
+.gap-m {
+    gap: var(--gap-m);
+}
+
+.gap-l {
+    gap: var(--gap-l);
+}
+
+
+.italic {
+    font-style: italic;
+}
+
+
+
+.thin {
+    font-weight: 100;
+}
+
+.normal {
+    font-weight: 300;
+}
+
+.thick {
+    font-weight: 500;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.heavy {
+    font-weight: 900;
+}
+
+
+.bolder {
+    font-weight: bolder;
+}
+
+.lighter {
+    font-weight: lighter;
+}
+
+
+.upper {
+    text-transform: uppercase;
+}
+
+.lower {
+    text-transform: lowercase;
+}
+
+.title {
+    text-transform: capitalize;
+}

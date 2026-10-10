@@ -1,135 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battlepup</title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="grid-container">
-        <div class="grid-item top-left">
-        </div>
+		<link rel="shortcut icon" href="assets/icons/favicon.svg" type="image/x-icon">
 
-        <div class="grid-item top-center">
-            <header>
-                <div class="logo-wrapper">
-                    <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="45" />
-                    </svg>
-                    <h1>BATTLEPUP</h1>
-                </div>
+		<link rel="stylesheet" href="styles/base.css">
+		<link rel="stylesheet" href="styles/utilities.css">
+		<link rel="stylesheet" href="styles/components.css">
+		<link rel="stylesheet" href="styles/pages.css">
+	
 
+		<script src="scripts/app.js" defer></script>
+		<script src="scripts/carousel.js" defer></script>
+		
+		<title>Battlepup</title>
+	</head>
 
+	<body class="vbox">
+		<header class="hbox center">
+			<nav class="expand-h expand-w">
+				<ul class="hbox center gap-s">
+					<li>
+						<a class="hbox center gap-s" href="#">
+							<img class="logo" id="header-logo" src="assets/logos/logo-primary.svg" alt="">
+							<span class="heavy">BATTLEPUP</span>
+						</a>
+					</li>
+					<span class="expand-w"></span>
+					<li><a href="pages/about.html">ABOUT</a></li>
+					<li><a href="pages/games.html">GAMES</a></li>
+					<li><a href="pages/contact.html">CONTACT</a></li>
+				</ul>
+			</nav>
+		</header>
 
-                <nav class="main-nav">
-                    <button class="menu-close" aria-label="Close Menu">&times;</button>
-                    <ul>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#legal">Legal</a></li>
-                        <li>
-                            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
-                                <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="5"></circle>
-                                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                                </svg>
-                                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                                </svg>
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
+		<main class="carousel-container">
+			<nav id="carousel-nav">
+				<button id="previous-btn" class="nav-arrow-btn" aria-label="Previous Slide"><</button>
+				<div class="slide-markers">
+					<button class="slide-marker" onclick="goToSlide(0)" aria-label="Slide 1" active></button>
+					<button class="slide-marker" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+					<button class="slide-marker" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+				</div>
+				<button id="next-btn" class="nav-arrow-btn" aria-label="Next Slide">></button>
+			</nav>
 
-        <div class="grid-item top-right">
-            <button class="menu-toggle" aria-label="Toggle Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+			<section class="carousel">
+				<article class="slide"></article>
+				<article class="slide"></article>
+				<article class="slide"></article>
+			</section>
+		</main>
 
-        <div class="grid-item middle-left">
-        </div>
-
-        <div class="grid-item middle-center">
-            <main>
-                <div class="carousel-container">
-                    <div class="carousel-item active" data-slide="1">
-                        <img src="https://picsum.photos/1920/1080?grayscale&blur=2" alt="Game 1" class="carousel-image">
-                        <div class="slide-content">
-                            <h2>COMING SOON</h2>
-                            <p>September 2026</p>
-                        </div>
-                    </div>
-                    <div class="carousel-nav">
-                        <button class="nav-tab active" data-target="1"></button>
-                    </div>
-                </div>
-            </main>
-        </div>
-
-        <div class="grid-item middle-right">
-        </div>
-
-        <div class="grid-item bottom-left">
-        </div>
-
-        <div class="grid-item bottom-center">
-            <footer>
-                <h6>&copy; Copyright 2026 Battlepup. All Rights reserved</h6>
-            </footer>
-        </div>
-
-        <div class="grid-item bottom-right">
-        </div>
-    </div>
-
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const menuClose = document.querySelector('.menu-close');
-        const mainNav = document.querySelector('.main-nav');
-
-        menuToggle.addEventListener('click', () => mainNav.classList.add('active'));
-        menuClose.addEventListener('click', () => mainNav.classList.remove('active'));
-
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            htmlElement.setAttribute('data-theme', newTheme);
-        });
-
-        const tabs = document.querySelectorAll('.nav-tab');
-        const slides = document.querySelectorAll('.carousel-item');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-target');
-
-                tabs.forEach(t => t.classList.remove('active'));
-                slides.forEach(s => s.classList.remove('active'));
-
-                tab.classList.add('active');
-                document.querySelector(`.carousel-item[data-slide="${target}"]`).classList.add('active');
-            });
-        });
-    </script>
-</body>
+		<footer class="hbox space center" style="padding: 0 1rem;">
+			<p>&copy; Battlepup <span class="date-year">2026</span>. All rights reserved</p>
+			<nav class="expand-h">
+				<ul class="hbox gap-s">
+					<li><a href="pages/legal.html">Legal</a></li>
+					<li><a href="pages/privacy.html">Privacy</a></li>
+				</ul>
+			</nav>
+		</footer>
+	</body>
 </html>

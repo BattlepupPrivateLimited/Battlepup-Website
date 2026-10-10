@@ -1,0 +1,95 @@
+:root {
+	--text: ;
+	--text-alt: ;
+
+	--accent: ;
+
+	--invert: ;
+}
+
+[data-theme="dark"] {
+	--bg: ;
+	--bg-alt: ;
+	--surface: ;
+	--surface-alt: ;
+
+	--text: white;
+	--text-alt: ;
+}
+
+[data-theme="light"] {
+	--bg: ;
+	--bg-alt: ;
+	--surface: ;
+	--surface-alt: ;
+
+	--text: black;
+	--text-alt: ;
+}
+
+* {
+	box-sizing: border-box;
+
+	padding: 0;
+	margin: 0;
+
+	text-decoration: none;
+	list-style: none;
+}
+
+
+body {
+	width: 100vw;
+	height: 100vh;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+
+	flex: 115;
+}
+
+
+header {
+	flex: 2;
+}
+
+/* section {
+
+}
+
+article {
+
+}
+
+aside {
+
+} */
+
+footer {
+	flex: 1;
+}
+
+
+nav {
+	align-items: center;
+	justify-content: center;
+}
+
+nav ul {
+	height: 100%;
+}
+
+nav li {
+	height: 100%;
+
+	align-content: center;
+	text-align: center;
+
+	padding: 0 1rem;
+}
+
+a {
+	color: inherit;
+}

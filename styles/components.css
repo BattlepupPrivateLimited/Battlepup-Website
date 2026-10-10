@@ -1,0 +1,113 @@
+/* Carousel and Slides */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.carousel {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.slide {
+    width: 100vw;
+    height: 100%;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Sleek gaming gradients for each slide */
+.slide:nth-child(1) {
+    background: skyblue;
+}
+
+.slide:nth-child(2) {
+    background: purple;
+}
+
+.slide:nth-child(3) {
+    background: green;
+}
+
+#carousel-nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 10;
+    display: flex;
+    align-items: center;
+
+    gap: 0.625rem;
+
+    border-radius: 3rem;
+    border: 1px solid white;
+}
+
+.nav-arrow-btn {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0 1rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.nav-arrow-btn:hover {
+    color: #66b2ff;
+    transform: scale(1.1);
+}
+
+.nav-arrow-btn:active {
+    transform: scale(0.95);
+}
+
+.slide-markers {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.slide-marker {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    border: none;
+    background-color: grey;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 0;
+}
+
+.slide-marker[active], .slide-marker.active {
+    background-color: #ffffff;
+    transform: scale(1.25);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.slide-marker:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #carousel-nav {
+        padding: 10px 20px;
+        gap: 16px;
+        bottom: 20px;
+    }
+}

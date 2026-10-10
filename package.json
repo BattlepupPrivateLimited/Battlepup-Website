@@ -1,0 +1,10 @@
+{
+  "name": "battlepup-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official website of Battlepup, an independent game development studio.",
+  "scripts": {
+    "start": "python3 -m http.server 8080"
+  },
+  "license": "UNLICENSED"
+}
