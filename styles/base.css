@@ -149,7 +149,7 @@ footer {
 	background: var(--bg-alt);
 	border-top: 1px solid var(--line);
 	color: var(--text-alt);
-	font-size: .5rem
+	font-size: 0.55rem
 }
 footer a { display: inline-block; padding: .375rem .25rem}
 footer a:hover { color: var(--text); }
