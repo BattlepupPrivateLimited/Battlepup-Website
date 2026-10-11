@@ -4,48 +4,70 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
+		<title>About | Battlepup</title>
+		<meta name="description" content="Battlepup is a game studio making bold, fast and fun games. Find out what we care about.">
+		<meta name="theme-color" content="#000000">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="About | Battlepup">
+		<meta property="og:description" content="Battlepup is a game studio making bold, fast and fun games.">
+
+		<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+
+		<!-- fonts: keep identical on every page -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" href="../styles/base.css">
 		<link rel="stylesheet" href="../styles/utilities.css">
 		<link rel="stylesheet" href="../styles/components.css">
 		<link rel="stylesheet" href="../styles/pages.css">
-	
 
 		<script src="../scripts/app.js" defer></script>
-		<script src="../scripts/carousel.js" defer></script>
-		
-		<title>About | Battlepup</title>
 	</head>
 
 	<body class="vbox">
 		<header class="hbox center">
 			<nav class="expand-h expand-w">
-				<ul class="hbox center gap-s">
+				<ul class="hbox center space">
 					<li>
 						<a class="hbox center gap-s" href="../index.html">
 							<img class="logo" id="header-logo" src="../assets/logos/logo-primary.svg" alt="">
 							<span class="heavy">BATTLEPUP</span>
 						</a>
 					</li>
-                    <span class="expand-w"></span>
-					<li><a href="#">ABOUT</a></li>
-					<li><a href="../pages/games.html">GAMES</a></li>
-					<li><a href="../pages/contact.html">CONTACT</a></li>
+					<li class="hbox gap-s">
+						<a href="about.html" aria-current="page" style="margin-inline-start: auto;">ABOUT</a>
+						<a href="games.html">GAMES</a>
+						<a href="contact.html">CONTACT</a>
+					</li>
 				</ul>
 			</nav>
 		</header>
 
-		<main>
-			
+		<main class="page page--about" id="main">
+			<section class="page__intro" aria-labelledby="about-title">
+				<span class="tag">About us</span>
+				<h1 class="page__title" id="about-title">We make games <span class="outline outline--block">with a bite</span></h1>
+				<span class="stripes rule" aria-hidden="true"></span>
+				<p>
+					Battlepup is a game studio based out of Kollam, Kerala in India. 
+					We care about tight gameplay, bold style and games that respect your time.
+					This page is a short introduction, and there is more to come about the team and our story.
+				</p>
+				<div class="cta-row">
+					<a class="btn" href="games.html">See our games</a>
+					<a class="btn-ghost" href="contact.html">Get in touch</a>
+				</div>
+			</section>
 		</main>
 
 		<footer class="hbox space center" style="padding: 0 1rem;">
 			<p>&copy; Battlepup <span class="date-year">2026</span>. All rights reserved</p>
 			<nav class="expand-h">
 				<ul class="hbox gap-s">
-					<li><a href="../pages/legal.html">Legal</a></li>
-					<li><a href="../pages/privacy.html">Privacy</a></li>
+					<li><a href="legal.html">Legal</a></li>
+					<li><a href="privacy.html">Privacy</a></li>
 				</ul>
 			</nav>
 		</footer>

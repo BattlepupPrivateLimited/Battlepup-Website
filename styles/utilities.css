@@ -1,17 +1,17 @@
 :root {
-    --gap-s: 1rem;
-    --gap-m: 2rem;
-    --gap-l: 4rem;
+	--gap-s: clamp(.5rem, 2vw, 1rem);
+	--gap-m: clamp(1rem, 3vw, 2rem);
+	--gap-l: clamp(2rem, 6vw, 4rem);
 
-    --fs-s: 1rem;
-    --fs-m: 2rem;
-    --fs-l: 4rem;
-    --fs-xl: 8rem;
+	--fs-s: .75rem;
+	--fs-m: .875rem;
+	--fs-l: 1.25rem;
+	--fs-xl: 2rem;
 
-    --ls-s: 1rem;
-    --ls-m: 2rem;
-    --ls-l: 4rem;
-    --ls-xl: 8rem;
+	--ls-s: .02em;
+	--ls-m: .08em;
+	--ls-l: .16em;
+	--ls-xl: .3em;
 }
 
 
@@ -112,4 +112,18 @@
 
 .title {
     text-transform: capitalize;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px; height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* Hyper Link-style hazard stripe bar */
+.stripes {
+	height: .25rem;
+	background: repeating-linear-gradient(135deg, var(--stripe) 0 2px, transparent 2px 6px);
 }

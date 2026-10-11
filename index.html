@@ -6,6 +6,10 @@
 
 		<link rel="shortcut icon" href="assets/icons/favicon.svg" type="image/x-icon">
 
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 		<link rel="stylesheet" href="styles/base.css">
 		<link rel="stylesheet" href="styles/utilities.css">
 		<link rel="stylesheet" href="styles/components.css">
@@ -21,22 +25,23 @@
 	<body class="vbox">
 		<header class="hbox center">
 			<nav class="expand-h expand-w">
-				<ul class="hbox center gap-s">
+				<ul class="hbox center space">
 					<li>
 						<a class="hbox center gap-s" href="#">
-							<img class="logo" id="header-logo" src="assets/logos/logo-primary.svg" alt="">
+							<img class="logo" id="header-logo" src="/assets/logos/logo-primary.svg" alt="">
 							<span class="heavy">BATTLEPUP</span>
 						</a>
 					</li>
-					<span class="expand-w"></span>
-					<li><a href="pages/about.html">ABOUT</a></li>
-					<li><a href="pages/games.html">GAMES</a></li>
-					<li><a href="pages/contact.html">CONTACT</a></li>
+					<li class="hbox gap-s">
+						<a href="pages/about.html" style="margin-inline-start: auto;">ABOUT</a>
+						<a href="pages/games.html">GAMES</a>
+						<a href="pages/contact.html">CONTACT</a>
+					</li>
 				</ul>
 			</nav>
 		</header>
 
-		<main class="carousel-container">
+		<main class="carousel-container page--index">
 			<nav id="carousel-nav">
 				<button id="previous-btn" class="nav-arrow-btn" aria-label="Previous Slide"><</button>
 				<div class="slide-markers">
@@ -48,13 +53,63 @@
 			</nav>
 
 			<section class="carousel">
-				<article class="slide"></article>
-				<article class="slide"></article>
-				<article class="slide"></article>
+				<article class="slide slide--welcome">
+					<div class="hero-block">
+						<h1 class="hero">
+							<span class="hero__kicker">Welcome</span>
+							<span class="hero__title">Battlepup</span>
+						</h1>
+						<span class="stripes hatch" aria-hidden="true"></span>
+					</div>
+
+					<p class="lede">We are a game dev studio</p>
+				</article>
+
+				<article class="slide slide--soon">
+					<div class="board" aria-hidden="true">
+						<span class="board__label">Notice</span>
+						<div class="board__window">
+							<div class="board__track">
+								<div class="board__group">
+									<span>Coming soon</span><span>New games</span><span>Stay tuned</span>
+									<span>Coming soon</span><span>New games</span><span>Stay tuned</span>
+								</div>
+								<div class="board__group">
+									<span>Coming soon</span><span>New games</span><span>Stay tuned</span>
+									<span>Coming soon</span><span>New games</span><span>Stay tuned</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<h2 class="display"> <span class="outline outline--block">coming soon</span></h2>
+					<p class="lede">New games are on the way from the Battlepup studio. We're not ready to show much yet, but check back soon.</p>
+
+					<div class="loadbar" aria-hidden="true">
+						<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+					</div>
+
+					<div class="cta-row">
+						<a class="btn-outline" href="pages/games.html">Browse our games</a>
+					</div>
+				</article>
+
+				<article class="slide slide--contact">
+
+					<div class="hud">
+						<span class="tag tag--live">Open channel</span>
+						<h2 class="display">Contact <span class="outline">Us</span></h2>
+						<p class="lede">Questions, feedback, ideas, or just saying hi? Send us a message, or get to know the studio first.</p>
+
+						<div class="cta-row">
+							<a class="btn" href="pages/contact.html">Contact us</a>
+						</div>
+					</div>
+				</article>
 			</section>
 		</main>
 
-		<footer class="hbox space center" style="padding: 0 1rem;">
+		<footer class="hbox space center">
 			<p>&copy; Battlepup <span class="date-year">2026</span>. All rights reserved</p>
 			<nav class="expand-h">
 				<ul class="hbox gap-s">

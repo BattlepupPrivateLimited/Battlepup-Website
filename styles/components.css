@@ -1,113 +1,366 @@
 /* Carousel and Slides */
 .carousel-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
+	--strip: clamp(1.25rem, 2vw, 1.5rem);
+	overflow: hidden;
+	background: #0a0a0d;
+}
+
+.carousel-container::before {
+	content: "";
+	content: "BATTLEPUP  //" / "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	z-index: 5;
+	display: grid;
+	place-items: center;
+	width: var(--strip);
+	overflow: hidden;
+	background: var(--accent-1);
+	color: #fff;
+	font-size: .625rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-xl);
+	white-space: nowrap;
+	writing-mode: vertical-rl;
 }
 
 .carousel {
-    display: flex;
-    width: 300%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-    will-change: transform;
+	display: flex;
+	flex: 1 1 0;
+	width: 100%;
+	min-height: 0;
+	transform: translateX(calc(var(--i, 0) * -100%)); /* JS only sets --i */
+	transition: transform .6s var(--ease);
+	touch-action: pan-y; /* vertical scroll native, horizontal swipe handled by JS */
+	will-change: transform;
 }
 
 .slide {
-    width: 100vw;
-    height: 100%;
-    flex-shrink: 0;
-    background-size: cover;
-    background-position: center;
-    position: relative;
+	position: relative;
+	isolation: isolate;
+	flex: 0 0 100%;
+	min-width: 0;
+	display: grid;
+	align-content: center;
+	justify-items: start;
+	gap: .75rem;
+	padding-block: clamp(1rem, 5dvh, 3rem) 4.5rem; /* bottom clears the nav */
+	padding-inline: calc(var(--strip) + clamp(1rem, 5vw, 4rem)) clamp(1rem, 5vw, 4rem);
+	overflow: hidden;
+	color: #fff;
+	background: var(--tone, #0a0a0d);
 }
 
-/* Sleek gaming gradients for each slide */
-.slide:nth-child(1) {
-    background: skyblue;
+.slide-bg {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /*TODO: Change to contain when images are added*/
+	object-position: 70% center;
 }
 
-.slide:nth-child(2) {
-    background: purple;
+/* dark scrim for text legibility, only when a real image is present */
+.slide:has(.slide-bg)::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background:
+		linear-gradient(90deg, rgb(0 0 0 / .85), rgb(0 0 0 / .4) 45%, transparent 75%),
+		linear-gradient(0deg, rgb(0 0 0 / .7), transparent 30%);
 }
 
-.slide:nth-child(3) {
-    background: green;
-}
+.slide :is(h1, h2) { max-width: 16ch; }
+.slide p { max-width: 42ch; color: rgb(255 255 255 / .85); }
 
+@keyframes rise { from { opacity: 0; transform: translateY(.75rem); } }
+.slide[data-current] > :not(.slide-bg) { animation: rise .6s var(--ease) both; }
+
+/* ---------- Carousel nav (flat) ---------- */
 #carousel-nav {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-
-    z-index: 10;
-    display: flex;
-    align-items: center;
-
-    gap: 0.625rem;
-
-    border-radius: 3rem;
-    border: 1px solid white;
+	position: absolute;
+	bottom: clamp(.75rem, 3dvh, 1.5rem);
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	background: #000;
+	border: 1px solid rgb(255 255 255 / .25);
+	border-radius: var(--radius);
 }
 
 .nav-arrow-btn {
-    background: transparent;
-    border: none;
-    color: var(--text);
-    font-size: 1.25rem;
-    cursor: pointer;
-    padding: 0 1rem;
-    transition: color 0.2s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2rem;
+	min-height: 2rem;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition: color .2s ease, background .2s ease, transform .2s ease;
 }
+.nav-arrow-btn:hover:not([aria-disabled="true"])  { background: var(--accent-1); }
+.nav-arrow-btn:active:not([aria-disabled="true"]) { background: var(--accent-2); }
+.nav-arrow-btn[aria-disabled="true"] { opacity: .35; cursor: default; }
 
-.nav-arrow-btn:hover {
-    color: #66b2ff;
-    transform: scale(1.1);
-}
+.slide-markers { display: flex; align-items: center; }
 
-.nav-arrow-btn:active {
-    transform: scale(0.95);
-}
-
-.slide-markers {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
+/* flat dashes; the hit area stays 1.75rem x 2rem */
 .slide-marker {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    border: none;
-    background-color: grey;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    padding: 0;
+	position: relative;
+	width: 1.75rem;
+	height: 2rem;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+.slide-marker::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 1.125rem;
+	height: 3px;
+	background: rgb(255 255 255 / .35);
+	transform: translate(-50%, -50%);
+	transition: background .2s ease;
+}
+.slide-marker:hover::before { background: rgb(255 255 255 / .8); }
+.slide-marker[active]::before,
+.slide-marker[aria-current="true"]::before { background: var(--brand); }
+
+/* ---------- Reusable pieces ---------- */
+.tag { /* Hyper Link label */
+	display: inline-flex;
+	align-items: center;
+	padding: .25rem .5rem;
+	background: #000;
+	border-right: 3px solid var(--accent-1);
+	color: #fff;
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
 }
 
-.slide-marker[active], .slide-marker.active {
-    background-color: #ffffff;
-    transform: scale(1.25);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.btn, .btn-outline {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.5rem;
+	padding: 0 1.25rem;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background .2s ease, color .2s ease;
+}
+.btn { background: var(--brand); color: #fff; }
+.btn:hover { background: #fff; color: #0a0a0d; }
+.btn-outline { background: transparent; border-color: rgb(255 255 255 / .7); color: #fff; }
+.btn-outline:hover { background: #fff; color: #0a0a0d; }
+
+.card {
+	padding: clamp(1rem, 3vw, 1.5rem);
+	background: var(--surface);
+	border: 1px solid var(--line);
 }
 
-.slide-marker:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+/* for logos on themed surfaces; the header overrides this with #header-logo */
+.logo {
+	filter: var(--filter-invert);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #carousel-nav {
-        padding: 10px 20px;
-        gap: 16px;
-        bottom: 20px;
-    }
+/* ---------- Responsive ---------- */
+@media (max-width: 48rem) {
+	.slide {
+		align-content: end;
+		background: linear-gradient(180deg, var(--block) 40%, transparent 40%), #0a0a0d;
+	}
+	.slide:has(.slide-bg)::after {
+		background: linear-gradient(0deg, rgb(0 0 0 / .88), rgb(0 0 0 / .35) 65%, transparent);
+	}
+}
+
+@media (max-height: 28rem) { /* phones in landscape */
+	.carousel-container::before { letter-spacing: var(--ls-m); } /* stops the sideways text clipping */
+	.slide { gap: .5rem; padding-block: 1rem 3.5rem; }
+	.slide p { display: none; }
+}
+
+/* ---------- Inner pages ---------- */
+.page {
+    --strip: clamp(1.25rem, 2vw, 1.5rem);
+
+	position: relative;
+	isolation: isolate;
+	display: grid;
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+	align-content: center;
+	gap: clamp(1rem, 4vw, 3rem);
+	padding-block: clamp(.75rem, 4dvh, 2.5rem);
+	padding-inline: calc(var(--strip) + clamp(1rem, 5vw, 4rem)) clamp(1rem, 5vw, 4rem);
+}
+
+/* red edge strip, like the homepage */
+.page::before {
+	content: "";
+	content: "BATTLEPUP  //" / ""; /* decorative: hidden from screen readers */
+	position: absolute;
+	inset: 0 auto 0 0;
+	z-index: 5;
+	display: grid;
+	place-items: center;
+	width: var(--strip);
+	overflow: hidden;
+	background: var(--accent-1);
+	color: #fff;
+	font-size: .625rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-xl);
+	white-space: nowrap;
+	writing-mode: vertical-rl;
+}
+
+.page--index::before {
+	content: "BATTLEPUP  //  INDEX";
+	content: "BATTLEPUP  //  INDEX" / "";
+}
+
+.page--about::before {
+	content: "BATTLEPUP  //  ABOUT";
+	content: "BATTLEPUP  //  ABOUT" / "";
+}
+
+.page--games::before {
+	content: "BATTLEPUP  //  GAMES";
+	content: "BATTLEPUP  //  GAMES" / "";
+}
+
+.page--legal::before {
+	content: "BATTLEPUP  //  LEGAL";
+	content: "BATTLEPUP  //  LEGAL" / "";
+}
+
+.page--privacy::before {
+	content: "BATTLEPUP  //  PRIVACY";
+	content: "BATTLEPUP  //  PRIVACY" / "";
+}
+
+/* red halftone fading in from the right */
+.page::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: radial-gradient(var(--accent-1) 1px, transparent 1.4px) 0 0 / 6px 6px;
+	opacity: .3;
+	mask-image: linear-gradient(90deg, transparent 50%, #000);
+}
+
+.page__intro {
+	container-type: inline-size; /* lets the title size itself to its column */
+	display: grid;
+	gap: .75rem;
+	align-content: center;
+	justify-items: start;
+}
+
+.page__title {
+	max-width: none;
+	margin-inline-start: -.05em; /* optical alignment, same trick as the homepage */
+	font-size: clamp(1.125rem, min(7.2cqi, 9dvh), 2.75rem);
+	line-height: .95;
+	letter-spacing: -.02em;
+}
+
+.page__intro p { max-width: 44ch; color: var(--text-alt); }
+
+.rule { width: min(100%, 10rem); height: .625rem; }
+
+/* outlined text that follows the theme (the homepage version is white-on-dark only) */
+.page .outline {
+	color: var(--bg);
+	-webkit-text-stroke: clamp(2px, .06em, 4px) var(--text);
+	paint-order: stroke fill;
+}
+@supports not (-webkit-text-stroke: 1px red) {
+	.page .outline { color: var(--text); }
+}
+
+.page__cards {
+	display: grid;
+	gap: .75rem;
+	align-content: center;
+}
+
+.card--bar {
+	position: relative;
+	display: grid;
+	gap: .25rem;
+	padding: .875rem 1rem;
+}
+.card--bar::before { /* flat red edge on the left of each card */
+	content: "";
+	position: absolute;
+	inset: -1px auto -1px -1px;
+	width: 3px;
+	background: var(--accent-1);
+}
+.card--bar h2 { font-size: .875rem; letter-spacing: var(--ls-s); overflow-wrap: anywhere; }
+.card--bar p { color: var(--text-alt); font-size: .75rem; }
+
+/* theme-aware outline button */
+.btn-ghost {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.5rem;
+	padding: 0 1.25rem;
+	border: 1px solid var(--text);
+	border-radius: var(--radius);
+	background: transparent;
+	color: var(--text);
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background .2s ease, color .2s ease;
+}
+.btn-ghost:hover { background: var(--text); color: var(--bg); }
+
+/* ---------- Inner page responsive ---------- */
+@media (max-width: 48rem) {
+	.page { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+	.page__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; align-content: start; }
+}
+
+@media (max-width: 36rem) {
+	.card--bar { padding: .625rem .75rem; }
+	.card--bar h2 { font-size: .6875rem; }
+}
+
+/* small phones and short windows: titles only, so nothing scrolls */
+@media (max-width: 36rem), (max-height: 34rem) {
+	.card--bar p { display: none; }
+}
+
+@media (max-height: 28rem) { /* phones in landscape */
+	.page { grid-template-columns: minmax(0, 1fr); }
+	.page__cards { display: none; }
+    .page::before { letter-spacing: var(--ls-m); }
 }

@@ -1,72 +1,61 @@
-const carousel = document.querySelector('.carousel');
-const slides = document.querySelectorAll('.slide');
-const markers = document.querySelectorAll('.slide-marker');
-const prevBtn = document.getElementById('previous-btn');
-const nextBtn = document.getElementById('next-btn');
+(() => {
+	const carousel = document.querySelector('.carousel');
+	if (!carousel) return;
 
-let currentIndex = 0;
-const totalSlides = slides.length;
+	const slides  = [...carousel.querySelectorAll('.slide')];
+	const markers = [...document.querySelectorAll('.slide-marker')];
+	const prevBtn = document.getElementById('previous-btn');
+	const nextBtn = document.getElementById('next-btn');
+	const last    = slides.length - 1;
+	let current   = 0;
 
-function goToSlide(index) {
-    if (index >= 0 && index < slides.length) {
-        currentIndex = index;
-    }
+	function goToSlide(index) {
+		current = Math.min(Math.max(index, 0), last); // stops at the ends
+		carousel.style.setProperty('--i', current);
 
-    // Move the carousel track
-    carousel.style.transform = `translateX(-${currentIndex * 100}vw)`;
+		slides.forEach((slide, i) => {
+			const on = i === current;
+			slide.inert = !on; // off-screen slides can't be tabbed into
+			slide.toggleAttribute('data-current', on);
+		});
 
-    // Update active state on markers
-    markers.forEach((marker, i) => {
-        if (i === currentIndex) {
-            marker.setAttribute('active', '');
-            marker.classList.add('active');
-        } else {
-            marker.removeAttribute('active');
-            marker.classList.remove('active');
-        }
-    });
-}
+		markers.forEach((marker, i) => {
+			marker.removeAttribute('active'); // legacy attribute from the HTML
+			if (i === current) marker.setAttribute('aria-current', 'true');
+			else marker.removeAttribute('aria-current');
+		});
 
-// Event listeners for arrow navigation
-prevBtn.addEventListener('click', () => {
-    goToSlide(currentIndex - 1);
-});
+		prevBtn?.setAttribute('aria-disabled', String(current === 0));
+		nextBtn?.setAttribute('aria-disabled', String(current === last));
+	}
 
-nextBtn.addEventListener('click', () => {
-    goToSlide(currentIndex + 1);
-});
+	// The HTML calls onclick="goToSlide(n)", so it must stay global.
+	window.goToSlide = goToSlide;
 
-// Optional: Keyboard navigation support
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-        goToSlide(currentIndex - 1);
-    } else if (e.key === 'ArrowRight') {
-        goToSlide(currentIndex + 1);
-    }
-});
+	document.getElementById('carousel-nav')?.addEventListener('click', (e) => {
+		const btn = e.target.closest('.nav-arrow-btn');
+		if (btn) goToSlide(current + (btn.id === 'next-btn' ? 1 : -1));
+	});
 
-// Touch swipe support for mobile friendliness
-let touchStartX = 0;
-let touchEndX = 0;
+	document.addEventListener('keydown', (e) => {
+		if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+		if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
+		if (e.key === 'ArrowLeft')  goToSlide(current - 1);
+		if (e.key === 'ArrowRight') goToSlide(current + 1);
+	});
 
-carousel.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-}, { passive: true });
+	let startX = 0, startY = 0;
+	carousel.addEventListener('pointerdown', (e) => {
+		startX = e.clientX;
+		startY = e.clientY;
+	});
+	carousel.addEventListener('pointerup', (e) => {
+		const dx = e.clientX - startX;
+		const dy = e.clientY - startY;
+		if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+			goToSlide(current + (dx < 0 ? 1 : -1));
+		}
+	});
 
-carousel.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-}, { passive: true });
-
-function handleSwipe() {
-    const threshold = 50;
-    if (touchEndX < touchStartX - threshold) {
-        goToSlide(currentIndex + 1);
-    }
-    if (touchEndX > touchStartX + threshold) {
-        goToSlide(currentIndex - 1);
-    }
-}
-
-// Initialize first slide marker state
-goToSlide(0);
+	goToSlide(0);
+})();

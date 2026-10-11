@@ -1,3 +1,295 @@
 #header-logo {
-    width: 2.5rem;
+	width: clamp(1.75rem, 5vw, 2.25rem);
+	height: auto;
+}
+
+/* arrows nudge in their own direction, but not when disabled */
+#previous-btn:hover:not([aria-disabled="true"]) { transform: translateX(-.15rem); }
+#next-btn:hover:not([aria-disabled="true"])     { transform: translateX(.15rem); }
+
+/* ==========================================================
+   Index slides (additive only)
+   ========================================================== */
+
+/* Two knobs for heading size. Change these to scale the slides. */
+.slide {
+	--hero-size: clamp(1.5rem, min(7.5vw, 13dvh), 3.75rem);
+	--display-size: clamp(1.25rem, min(6vw, 10.5dvh), 2.75rem);
+}
+
+/* staggered entrance (builds on the existing "rise" animation) */
+.slide[data-current] > :nth-child(2) { animation-delay: .08s; }
+.slide[data-current] > :nth-child(3) { animation-delay: .16s; }
+.slide[data-current] > :nth-child(4) { animation-delay: .24s; }
+.slide[data-current] > :nth-child(n+5) { animation-delay: .32s; }
+
+/* ---------- Shared pieces ---------- */
+.slide .lede {
+	max-width: 38ch;
+	font-size: clamp(.75rem, .7rem + .2vw, .875rem);
+}
+
+.cta-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: .75rem;
+	margin-top: .25rem;
+}
+
+/* Outlined text. The fill matches the slide, which also hides the
+   overlapping contours some variable fonts show when stroked. */
+.outline {
+	color: var(--tone, #0a0a0d);
+	-webkit-text-stroke: clamp(2px, .06em, 4px) #fff;
+	paint-order: stroke fill;
+}
+.outline--block { display: block; }
+@supports not (-webkit-text-stroke: 1px #fff) {
+	.outline { color: #fff; }
+}
+
+/* huge outlined slide number */
+.slide-num {
+	position: absolute;
+	inset-inline-end: clamp(1rem, 4vw, 3rem);
+	top: 50%;
+	translate: 0 -50%;
+	z-index: -1;
+	font-size: clamp(5rem, 20vw, 17rem);
+	font-weight: 900;
+	font-stretch: 125%;
+	line-height: .8;
+	letter-spacing: -.04em;
+	color: var(--tone, #0a0a0d);
+	-webkit-text-stroke: 4px var(--accent-1);
+	paint-order: stroke fill;
+	opacity: .6;
+	pointer-events: none;
+	user-select: none;
+}
+
+/* ---------- Slide 1: welcome ---------- */
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem var(--gap-s);
+}
+.chip { --bar: var(--accent-1); }
+.chip::before {
+	content: "";
+	display: block;
+	height: 3px;
+	margin-bottom: .35rem;
+	background: var(--bar);
+}
+.chip--hazard { --bar: var(--stripe); }
+.chip--bone   { --bar: #f4eeee; }
+
+.slide .hero {
+	max-width: none;
+	font-size: var(--hero-size);
+	line-height: .88;
+	letter-spacing: -.02em;
+}
+.hero__kicker {
+	display: block;
+	margin-bottom: .35em;
+	font-size: .24em;
+	font-weight: 800;
+	letter-spacing: var(--ls-xl);
+	color: var(--accent-hi);
+}
+.hero__accent { color: var(--accent-1); }
+
+.hero-block {
+	display: grid;
+	gap: .75rem;
+	width: fit-content; /* as wide as the title, so the stripe can match it */
+	max-width: 100%;
+}
+
+.hatch {
+	width: 100%;
+	height: .75rem;
+}
+
+/* optical alignment: cancels the built-in gap at the left of big letters */
+.hero__title { display: block; margin-inline-start: -.055em; }
+.hero__kicker { margin-inline-start: -.03em; }
+
+/* ---------- Slide 2: coming soon ---------- */
+.slide .display {
+	max-width: none;
+	font-size: var(--display-size);
+	line-height: .92;
+	letter-spacing: -.02em;
+    margin-inline-start: -.05em;
+}
+
+/* flat "loading" bar */
+.loadbar { display: flex; gap: 3px; }
+.loadbar i {
+	width: 1.25rem;
+	height: .5rem;
+	background: rgb(255 255 255 / .18);
+}
+.loadbar i:nth-child(-n+5) { background: var(--accent-1); }
+.loadbar i:nth-child(6) { background: var(--accent-hi); }
+.slide[data-current] .loadbar i:nth-child(6) { animation: blink 1s steps(1, end) 4; }
+
+/* ---------- Slide 3: contact ---------- */
+.hud {
+	--b: var(--accent-1);
+	--l: 1.5rem;
+	display: grid;
+	gap: .75rem;
+	justify-items: start;
+	max-width: 100%;
+	padding: clamp(1rem, 3vw, 2rem);
+	background-color: rgb(0 0 0 / .35);
+	background-image:
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b)),
+		linear-gradient(var(--b), var(--b));
+	background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+	background-size:
+		var(--l) 2px, 2px var(--l),
+		var(--l) 2px, 2px var(--l),
+		var(--l) 2px, 2px var(--l),
+		var(--l) 2px, 2px var(--l);
+	background-repeat: no-repeat;
+}
+
+.tag--live::before {
+	content: "";
+	width: .5rem;
+	height: .5rem;
+	margin-right: .5rem;
+	background: var(--accent-hi);
+}
+.slide[data-current] .tag--live::before { animation: blink 1s steps(1, end) 4; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 48rem) {
+	.slide-num {
+		top: 1rem;
+		translate: none;
+		font-size: clamp(3.5rem, 22vw, 6rem);
+	}
+	.slide--soon .slide-num { top: 3.5rem; } /* sits below the tape */
+}
+
+@media (max-height: 28rem) { /* phones in landscape: keep only the essentials */
+	.chips, .slide-num, .loadbar, .hatch { display: none; }
+	.hud { padding: .75rem 1rem; }
+}
+
+/* the global reduced-motion rule would make infinite loops flicker, so switch them off */
+@media (prefers-reduced-motion: reduce) {
+	.slide[data-current] .loadbar i:nth-child(6),
+	.slide[data-current] .tag--live::before { animation: none; }
+}
+
+/* slash lines are now a background layer, which frees ::before for the dots */
+.slide--welcome,
+.slide--soon,
+.slide--contact {
+	background:
+		repeating-linear-gradient(115deg, transparent 0 2.5rem, rgb(255 255 255 / .05) 2.5rem calc(2.5rem + 1px)),
+		var(--tone, #0a0a0d);
+}
+
+/* red halftone, per slide, so positioned elements (like the sign) sit above it */
+.slide::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: radial-gradient(var(--accent-1) 1px, transparent 1.4px) 0 0 / 6px 6px;
+	opacity: .35;
+	mask-image: linear-gradient(90deg, transparent 40%, #000);
+}
+
+/* ---------- Signboard (slide 2) ---------- */
+.slide--soon {
+	--board-top: clamp(.75rem, 3dvh, 1.5rem);
+	--board-h: 2rem;
+	/* content always starts below the sign */
+	padding-block-start: calc(var(--board-top) + var(--board-h) + 1.5rem);
+}
+
+.board {
+	position: absolute;
+	top: var(--board-top);
+	/* same left and right edges as the text column */
+	inset-inline: calc(var(--strip) + clamp(1rem, 5vw, 4rem)) clamp(1rem, 5vw, 4rem);
+	display: flex;
+	height: var(--board-h);
+	background: #000;
+	border: 2px solid var(--stripe);
+	color: var(--stripe);
+	font-size: .6875rem;
+	font-weight: 900;
+	letter-spacing: var(--ls-l);
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.board__label {
+	display: grid;
+	place-items: center;
+	flex: 0 0 auto;
+	padding-inline: .875rem;
+	background: var(--stripe);
+	color: #000;
+}
+
+.board__window {
+	display: flex;
+	flex: 1 1 0;
+	align-items: center;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.board__track { display: flex; width: max-content; }
+
+.board__group {
+	display: flex;
+	flex: 0 0 auto;
+	min-width: 100vw; /* each copy is at least as wide as the screen, so the loop never gaps */
+	justify-content: space-around;
+}
+
+/* square bullet between messages */
+.board__group > span::after {
+	content: "";
+	display: inline-block;
+	width: .4rem;
+	height: .4rem;
+	margin-inline: 1.25rem;
+	background: currentColor;
+	vertical-align: middle;
+}
+
+@keyframes ticker { to { transform: translateX(-50%); } }
+.slide[data-current] .board__track { animation: ticker 24s linear infinite; }
+.board:hover .board__track { animation-play-state: paused; }
+
+@keyframes blink { 50% { opacity: 0; } }
+
+@media (max-height: 28rem) { /* phones in landscape */
+	.board { display: none; }
+	.slide--soon { padding-block-start: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.slide[data-current] .board__track { animation: none; }
 }
