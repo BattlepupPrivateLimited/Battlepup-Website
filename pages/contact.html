@@ -4,18 +4,26 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
+		<title>Contact | Battlepup</title>
+		<meta name="description" content="Get in touch with Battlepup. Find our email, phone number and social links.">
+		<meta name="theme-color" content="#000000">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Contact | Battlepup">
+		<meta property="og:description" content="Get in touch with Battlepup.">
+
+		<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+
+		<!-- fonts: keep identical on every page -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" href="../styles/base.css">
 		<link rel="stylesheet" href="../styles/utilities.css">
 		<link rel="stylesheet" href="../styles/components.css">
 		<link rel="stylesheet" href="../styles/pages.css">
-	
 
 		<script src="../scripts/app.js" defer></script>
-		<script src="../scripts/carousel.js" defer></script>
-		
-		<title>Contact | Battlepup</title>
 	</head>
 
 	<body class="vbox">
@@ -29,24 +37,50 @@
 						</a>
 					</li>
 					<li class="hbox gap-s">
-						<a href="../pages/about.html" style="margin-inline-start: auto;">ABOUT</a>
-						<a href="../pages/games.html">GAMES</a>
-						<a href="#">CONTACT</a>
+						<a href="about.html" style="margin-inline-start: auto;">ABOUT</a>
+						<a href="games.html">GAMES</a>
+						<a href="contact.html" aria-current="page">CONTACT</a>
 					</li>
 				</ul>
 			</nav>
 		</header>
 
-		<main>
-			
+		<main class="page page--contact" id="main">
+			<section class="page__intro" aria-labelledby="contact-title">
+				<span class="tag">Contact</span>
+				<h1 class="page__title" id="contact-title">Get in <span class="outline outline--block">touch</span></h1>
+				<span class="stripes rule" aria-hidden="true"></span>
+				<p class="contact-intro">Questions, feedback or ideas? Reach us through any of these.</p>
+			</section>
+
+			<section class="page__cards" aria-label="Ways to reach us">
+				<a class="card card--bar contact-card" href="mailto:rishikesh.6017@gmail.com">
+					<span class="contact-card__label">Email</span>
+					<span class="contact-card__value">rishikesh.6017@gmail.com</span>
+				</a>
+
+				<a class="card card--bar contact-card" href="tel:+10000000000">
+					<span class="contact-card__label">Phone</span>
+					<span class="contact-card__value">+91 9188739230</span>
+				</a>
+
+<!-- 				<div class="card card--bar contact-card">
+					<span class="contact-card__label">Social</span>
+					<span class="contact-card__value contact-social">
+						<a href="https://x.com/">X</a>
+						<a href="https://www.youtube.com/">YouTube</a>
+						<a href="https://www.instagram.com/">Instagram</a>
+					</span>
+				</div> -->
+			</section>
 		</main>
 
 		<footer class="hbox space center" style="padding: 0 1rem;">
 			<p>&copy; Battlepup <span class="date-year">2026</span>. All rights reserved</p>
 			<nav class="expand-h">
 				<ul class="hbox gap-s">
-					<li><a href="../pages/legal.html">Legal</a></li>
-					<li><a href="../pages/privacy.html">Privacy</a></li>
+					<li><a href="legal.html">Legal</a></li>
+					<li><a href="privacy.html">Privacy</a></li>
 				</ul>
 			</nav>
 		</footer>

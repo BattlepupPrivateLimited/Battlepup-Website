@@ -364,3 +364,151 @@
 	.page__cards { display: none; }
     .page::before { letter-spacing: var(--ls-m); }
 }
+
+/* ==========================================================
+   Documents (legal, privacy): plain and austere
+   ========================================================== */
+.doc-page {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	grid-template-rows: minmax(0, 1fr);
+	gap: clamp(.75rem, 2vw, 1.5rem);
+	padding: clamp(.75rem, 3dvh, 1.5rem) clamp(1rem, 4vw, 3rem);
+	overflow: hidden; /* only the document scrolls */
+}
+
+/* ---------- Contents panel ---------- */
+.toc-wrap {
+	align-self: start;
+	width: 16rem;
+	max-height: 100%;
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+.toc-wrap:has(.toc:not([open])) { width: auto; } /* collapsed: only the bar remains */
+
+.toc summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	min-height: 2.5rem;
+	padding: .5rem .75rem;
+	border: 1px solid var(--line);
+	background: var(--bg-alt);
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
+	list-style: none;
+	cursor: pointer;
+}
+.toc summary::-webkit-details-marker { display: none; }
+.toc summary::after { content: "+"; content: "+" / ""; font-size: 1rem; line-height: 1; }
+.toc[open] summary::after { content: "\2212"; content: "\2212" / ""; }
+
+.toc nav {
+	padding: .5rem 0;
+	border: 1px solid var(--line);
+	border-top: 0;
+	background: var(--bg-alt);
+}
+
+/* undo the site-wide nav list rules, which are built for the header */
+.toc ul { height: auto; }
+.toc li { height: auto; padding: 0; text-align: start; }
+
+.toc a {
+	display: block;
+	padding: .3rem .75rem;
+	border-left: 2px solid transparent;
+	color: var(--text-alt);
+	font-size: .75rem;
+	line-height: 1.35;
+}
+.toc ul ul a { padding-left: 1.5rem; font-size: .6875rem; }
+.toc a:hover { color: var(--text); }
+.toc a[aria-current="location"] {
+	border-left-color: var(--accent-1);
+	background: var(--surface);
+	color: var(--text);
+}
+
+/* ---------- The document ---------- */
+.doc {
+	min-height: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	scroll-behavior: smooth;
+	scrollbar-width: thin;
+	scrollbar-color: var(--accent) transparent;
+	padding: clamp(1rem, 3vw, 2rem);
+	border: 1px solid var(--line);
+	border-top: 2px solid var(--accent-1);
+	background: var(--bg-alt);
+	line-height: 1.65;
+}
+.doc:focus-visible { outline-offset: -3px; }
+
+.doc > * { max-width: 70ch; }
+.doc > * + * { margin-top: .75rem; }
+
+.doc h1, .doc h2, .doc h3 {
+	font-stretch: 100%;
+	letter-spacing: 0;
+	text-transform: none;
+	scroll-margin-top: .5rem;
+}
+.doc h1 { font-size: 1.25rem; line-height: 1.2; }
+.doc h2 { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .9375rem; }
+.doc h3 { margin-top: 1.25rem; font-size: .8125rem; }
+
+.doc__sub { color: var(--text-alt); }
+.doc__meta { color: var(--text-alt); font-size: .75rem; }
+
+.doc ul { padding-inline-start: 1.25rem; list-style: square; }
+.doc li + li { margin-top: .25rem; }
+.doc p a, .doc li a { text-decoration: underline; text-underline-offset: .15em; }
+.doc p a:hover { color: var(--accent); }
+
+/* highlights text you still have to fill in */
+.ph {
+	border-bottom: 1px dashed var(--stripe);
+	background: rgb(255 196 0 / .12);
+}
+
+/* ---------- Notice cards ---------- */
+.notice {
+	display: grid;
+	gap: .25rem;
+	padding: .75rem 1rem;
+	border: 1px solid var(--line);
+	border-left: 3px solid var(--text-alt);
+	background: var(--surface);
+	font-size: .75rem;
+}
+.notice__title {
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
+}
+.notice p { max-width: none; }
+.notice--warning { border-left-color: var(--stripe); }
+.notice--alert { border-left-color: var(--accent-1); }
+.notice--alert .notice__title { color: var(--accent); }
+
+/* ---------- Small screens: contents sit above the document ---------- */
+@media (max-width: 48rem) {
+	.doc-page {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto minmax(0, 1fr);
+		gap: .5rem;
+	}
+	.toc-wrap { width: auto; max-height: 45dvh; }
+	.toc:not([data-ready]) nav { display: none; } /* no open menu flashing before the script runs */
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.doc { scroll-behavior: auto; }
+}

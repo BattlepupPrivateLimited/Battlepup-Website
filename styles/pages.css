@@ -461,3 +461,63 @@
 	border-radius: var(--radius);
 }
 .games-nav[hidden] { display: none; }
+
+/* ==========================================================
+   Contact page
+   ========================================================== */
+.page--contact::before {
+	content: "BATTLEPUP  //  CONTACT";
+	content: "BATTLEPUP  //  CONTACT" / "";
+}
+
+.contact-card { gap: .25rem; }
+
+.contact-card__label {
+	color: var(--text-alt);
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
+}
+
+.contact-card__value {
+	font-size: .875rem;
+	font-weight: 700;
+	overflow-wrap: anywhere;
+}
+
+/* email and phone cards are links in their entirety */
+a.contact-card {
+	transition: border-color .2s ease, background .2s ease;
+}
+a.contact-card:hover {
+	border-color: var(--accent);
+	background: var(--surface-alt);
+}
+a.contact-card:hover .contact-card__value { color: var(--accent); }
+
+.contact-social { display: flex; flex-wrap: wrap; gap: .25rem 1rem; }
+.contact-social a {
+	padding-block: .25rem;
+	border-bottom: 1px solid var(--accent);
+	transition: color .2s ease;
+}
+.contact-social a:hover { color: var(--accent); }
+
+/* phones and tablets: the cards stack full width, because the values matter here */
+@media (max-width: 48rem) {
+	.page--contact .page__cards { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+}
+
+@media (max-height: 28rem) { /* landscape phones: two columns, extras dropped */
+	.page--contact { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+	.page--contact .page__cards { display: grid; } /* the About page hides its cards here, this one can't */
+	.contact-intro, .rule { display: none; }
+}
+
+/* current page in the footer */
+footer a[aria-current="page"] {
+	color: var(--text);
+	text-decoration: underline;
+	text-underline-offset: .2em;
+}
