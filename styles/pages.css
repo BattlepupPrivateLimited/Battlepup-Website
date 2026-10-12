@@ -293,3 +293,171 @@
 @media (prefers-reduced-motion: reduce) {
 	.slide[data-current] .board__track { animation: none; }
 }
+
+/* ==========================================================
+   Games page
+   ========================================================== */
+
+/* the card row fills the whole page height, like the reference */
+.page--games {
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-rows: minmax(0, 1fr);
+	grid-auto-rows: auto; /* the arrows' row only exists while they are visible */
+	row-gap: .75rem;
+	align-content: stretch;
+}
+
+.page--games::before {
+	content: "BATTLEPUP  //  GAMES";
+	content: "BATTLEPUP  //  GAMES" / "";
+}
+
+.games {
+	display: flex;
+	gap: clamp(.5rem, 1.5vw, 1rem);
+	min-height: 0;
+	/* bleed to the right edge of the screen so the next card peeks in */
+	margin-inline-end: calc(-1 * clamp(1rem, 5vw, 4rem));
+	padding-inline-end: clamp(1rem, 5vw, 4rem);
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none; /* the arrows, swipe and drag replace the scrollbar */
+}
+.games::-webkit-scrollbar { display: none; }
+.games[data-scrollable] { cursor: grab; }
+.games.is-dragging { cursor: grabbing; user-select: none; }
+
+.game-card {
+	position: relative;
+	isolation: isolate;
+	flex: 0 0 clamp(16rem, 36vw, 30rem);
+	grid-template-rows: auto 1fr auto;
+	overflow: hidden;
+	scroll-snap-align: start;
+	background-color: #0a0a0d; /* longhand on purpose, so the .hud corner brackets survive */
+	color: #fff;
+}
+
+/* red dots rising from the bottom edge */
+.game-card::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: radial-gradient(var(--accent-1) 1px, transparent 1.4px) 0 0 / 6px 6px;
+	opacity: .35;
+	mask-image: linear-gradient(0deg, #000, transparent 60%);
+}
+
+/* faint slash lines */
+.game-card::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: repeating-linear-gradient(115deg, transparent 0 2.5rem, rgb(255 255 255 / .05) 2.5rem calc(2.5rem + 1px));
+}
+
+.game-card__head {
+	grid-row: 1;
+	display: grid;
+	gap: .5rem;
+	justify-items: start;
+}
+.game-card__title { color: #fff; }
+
+.game-card__text {
+	grid-row: 3;
+	max-width: 30ch;
+	color: rgb(255 255 255 / .8);
+	font-size: .75rem;
+}
+
+/* ---------- Yellow tape ---------- */
+.game-card__tape {
+	--tape-tilt: 0deg; /* try -4deg for an angled tape, and add "scale: 1.1" so the ends still reach the edges */
+	position: absolute;
+	inset-inline: 0;
+	top: 50%;
+	translate: 0 -50%;
+	rotate: var(--tape-tilt);
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+	padding-block: 1.125rem;
+	overflow: hidden;
+	background: var(--stripe);
+	color: #0a0a0d;
+	font-size: .8125rem;
+	font-weight: 900;
+	letter-spacing: var(--ls-l);
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+/* hazard stripes along the top and bottom edges of the tape */
+.game-card__tape::before,
+.game-card__tape::after {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	height: .375rem;
+	background: repeating-linear-gradient(135deg, #0a0a0d 0 6px, transparent 6px 12px);
+}
+.game-card__tape::before { top: 0; }
+.game-card__tape::after  { bottom: 0; }
+
+/* square bullet between messages */
+.game-card__tape span + span::before {
+	content: "";
+	display: inline-block;
+	width: .4rem;
+	height: .4rem;
+	margin-right: 1.5rem;
+	background: currentColor;
+	vertical-align: middle;
+}
+
+/* phones: the card takes the full width */
+@media (max-width: 48rem) {
+	.game-card { flex-basis: 100%; }
+}
+
+.game-card__art {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ---------- Hover zoom ---------- */
+.game-card { --zoom: 1; }
+
+.game-card__art,
+.game-card::before,
+.game-card::after {
+	transform: scale(var(--zoom));
+	transition: transform .7s var(--ease);
+}
+
+.game-card:focus-within { --zoom: 1.06; }
+@media (hover: hover) {
+	.game-card:hover { --zoom: 1.06; } /* touch screens skip it, so it never sticks */
+}
+
+.game-card__art { user-select: none; -webkit-user-drag: none; }
+
+/* ---------- Arrows (same look as the homepage nav) ---------- */
+.games-nav {
+	display: flex;
+	justify-self: end;
+	background: #000;
+	border: 1px solid rgb(255 255 255 / .25);
+	border-radius: var(--radius);
+}
+.games-nav[hidden] { display: none; }

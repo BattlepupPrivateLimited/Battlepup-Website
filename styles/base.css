@@ -175,7 +175,7 @@ header nav a {
 	position: relative;
 	display: inline-flex;
 	align-items: center;
-	min-height: 2.5rem; /* comfortable tap target */
+	min-height: 4rem; /* comfortable tap target */
 	font-size: clamp(.625rem, .56rem + .3vw, .75rem);
 	font-weight: 700;
 	letter-spacing: var(--ls-m);

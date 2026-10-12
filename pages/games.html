@@ -4,18 +4,27 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
+		<title>Games | Battlepup</title>
+		<meta name="description" content="Games from Battlepup. New games are on the way, so check back soon.">
+		<meta name="theme-color" content="#000000">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Games | Battlepup">
+		<meta property="og:description" content="New games are on the way from Battlepup.">
+
+		<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+
+		<!-- fonts: keep identical on every page -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" href="../styles/base.css">
 		<link rel="stylesheet" href="../styles/utilities.css">
 		<link rel="stylesheet" href="../styles/components.css">
 		<link rel="stylesheet" href="../styles/pages.css">
-	
 
 		<script src="../scripts/app.js" defer></script>
-		<script src="../scripts/carousel.js" defer></script>
-		
-		<title>Games | Battlepup</title>
+		<script src="../scripts/games.js" defer></script>
 	</head>
 
 	<body class="vbox">
@@ -29,24 +38,48 @@
 						</a>
 					</li>
 					<li class="hbox gap-s">
-						<a href="../pages/about.html" style="margin-inline-start: auto;">ABOUT</a>
-						<a href="#">GAMES</a>
-						<a href="../pages/contact.html">CONTACT</a>
+						<a href="about.html" style="margin-inline-start: auto;">ABOUT</a>
+						<a href="games.html" aria-current="page">GAMES</a>
+						<a href="contact.html">CONTACT</a>
 					</li>
 				</ul>
 			</nav>
 		</header>
 
-		<main>
-			
+		<main class="page page--games" id="main">
+			<h1 class="sr-only">Our games</h1>
+
+			<ul class="games" role="list">
+				<li class="game-card hud">
+					<div class="game-card__head">
+						<span class="tag">In development</span>
+					</div>
+
+					<div class="game-card__tape" aria-hidden="true">
+						<span>Coming soon</span><span>Coming soon</span><span>Coming soon</span>
+					</div>
+
+					<p class="game-card__text"><strong class="sr-only">Coming soon. </strong>New games are on the way. Check back soon.</p>
+				</li>
+
+				<!-- <li class="game-card hud">
+					<h2 class="game-card__title">Next game</h2>
+					<img class="game-card__art" src="../assets/images/game-1.avif" alt="" loading="lazy" decoding="async">
+				</li> -->
+			</ul>
+
+			<div class="games-nav" hidden>
+				<button class="nav-arrow-btn" id="games-prev" aria-label="Previous game" aria-disabled="true">&lt;</button>
+				<button class="nav-arrow-btn" id="games-next" aria-label="Next game">&gt;</button>
+			</div>
 		</main>
 
 		<footer class="hbox space center" style="padding: 0 1rem;">
 			<p>&copy; Battlepup <span class="date-year">2026</span>. All rights reserved</p>
 			<nav class="expand-h">
 				<ul class="hbox gap-s">
-					<li><a href="../pages/legal.html">Legal</a></li>
-					<li><a href="../pages/privacy.html">Privacy</a></li>
+					<li><a href="legal.html">Legal</a></li>
+					<li><a href="privacy.html">Privacy</a></li>
 				</ul>
 			</nav>
 		</footer>
