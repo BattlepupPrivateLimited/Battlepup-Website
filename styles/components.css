@@ -447,6 +447,7 @@
 	border-top: 2px solid var(--accent-1);
 	background: var(--bg-alt);
 	line-height: 1.65;
+	text-align: justify;
 }
 .doc:focus-visible { outline-offset: -3px; }
 
@@ -512,3 +513,28 @@
 @media (prefers-reduced-motion: reduce) {
 	.doc { scroll-behavior: auto; }
 }
+
+/* tables inside documents */
+.doc__table { overflow-x: auto; }
+
+.doc table {
+	width: 100%;
+	min-width: 30rem;
+	border-collapse: collapse;
+	font-size: .75rem;
+}
+.doc th,
+.doc td {
+	padding: .5rem .75rem;
+	border: 1px solid var(--line);
+	text-align: start;
+	vertical-align: top;
+}
+.doc thead th {
+	background: var(--surface);
+	font-size: .6875rem;
+	font-weight: 800;
+	letter-spacing: var(--ls-m);
+	text-transform: uppercase;
+}
+.doc tbody th { font-weight: 700; }
